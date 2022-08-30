@@ -11,6 +11,16 @@
 
     <div id = "contenedor">
 
+        <ol>
+
+            <li v-for = "item in chamacos">
+                {{ item.name }}: <span>
+                    {{ item.role}}
+                </span>
+            </li>
+
+        </ol>
+
         <h1>
             {{ name }}
         </h1>
@@ -19,28 +29,16 @@
             {{ lastname }}
         </h2> 
 
-        <input type="text" v-model="valor1" name="">
-        <input type="text" v-model="valor2" name="">
-        <input type="text" v-model="age" name="">
-
+        <input type="text" v-model="chamaco" name="">
+        <input type="text" v-model="rol" name="">
 
         <hr>
 
-        <button @click="hola">
-            Suma
+        <button @click="save">
+            Save chamaco
         </button>
 
-        <button @click>
 
-        </button>
-
-        <h1 v-if = "age < 18">
-            No pasa
-        </h1>
-
-        <h1 v-if = "age >= 18">
-            Pase
-        </h1>
     
 
     </div>
@@ -59,13 +57,20 @@
                     valor1: 0,
                     valor2: 0,
                     valorFinal: 0,
-                    age: 0
+                    age: 0,
+                    chamacos: [{name: "Achoy", role: "tonto"},
+                     {name: "Zamago", role: "Chapulin"}],
+                     chamaco: "",
+                     rol: ""
                 }
             },
             methods: {
                 hola(){
                     this.valorFinal = parseInt(this.valor1)+ parseInt(this.valor2);
                     alert("El resultado es: " + this.valorFinal );
+                },
+                save(){
+                    this.chamacos.push({name: this.chamaco, role: this.rol},)
                 }
             },
             
