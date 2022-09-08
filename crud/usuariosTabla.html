@@ -5,36 +5,36 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-            
     <script src="https://unpkg.com/vue@3"></script>
-
 </head>
 <body>
+
     <div id = "contenedor">
 
 
-        <table id="tablaUsuarios" class="table stripped bordered">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="usuario in users">
-                    <td>{{ usuario.name }}</td>
-                    <td>{{ usuario.username }}</td>
-                    <td>{{ usuario.email }}</td>
+        <form>
+            <fieldset>
+                <legend>
+                    Acceso al panel
+                </legend>
 
-                </tr>
-            </tbody>
-        </table>
+                <label>
+                    Correo electronico
+                </label>
+                <input type="email" v-model="email" name="">
+
+                <label>
+                    Password
+                </label>
+
+                <input type="password" v-model="password" name="">
+
+                <button @click = "login">
+                    Acceder
+                </button>
+            </fieldset>
+        </form>
 
     </div>
 
@@ -46,8 +46,6 @@
         const data = null;
         const error = null;
 
-
-
         var test = createApp({
             data () {
                 return {
@@ -57,21 +55,19 @@
                 }
             },
             methods: {
-                login2(e){
+                login(e){
                     e.preventDefault();
 
                     var email_user = this.email;
                     var pass_user = this.password;
 
-
                     var acces = this.users.map(function(u){
-
 
                         if (email_user === u.email.toLowerCase()){
                             if (pass_user === u.password){
-                                console.log("2");
                                 alert("Acceso correcto!")
                                 //localstore
+                                window.location="vue.html"
                                 return true;
                             }
                         }
@@ -79,7 +75,6 @@
                         return false;
                     })
 
-                    alert("Datos incorrectos")
                     console.log(acces);
                 }
                 
