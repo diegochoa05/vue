@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+</head>
+<body>
+
+    <div id = "contenedor">
+
+        <div>
+            <br>
+            <h1>
+                Peliculas en Español
+            </h1>
+            <br>
+            <hr>
+            <br>
+        </div>
+
+        <div class="row align-items-start">
+            
+
+                <div class="col-2" v-for="peliculas in pelicula" style="width: 18rem;">
+
+                    <img class="card-img-top" :src="'https://image.tmdb.org/t/p/w220_and_h330_face' + peliculas.poster_path">
+                    <div class="card-body">
+                      <h2 class="card-title">
+                        {{ peliculas.title }} 
+                      </h2>
+                      <br>
+                      <br>
+                      <button class="btn btn-primary" @click="detalles(peliculas)">Ver detalles</button>
+                    </div>
+                    <br>
+                  </div>
+
+            </div>
+
+        </div>
+
+        
+    </div>
+
+    
+
+    <script type="text/javascript">
+
+        const { createApp } = Vue;
+
+        const data = null;
+        const error = null;
+
+        var test = createApp({
+            data () {
+                return {
+                    pelicula: null
+                }
+            },
+            methods: {
+                detalles(pelicula){
+                    localStorage.setItem("idPeli", pelicula.id);
+                    window.location="detalles.html"
+                }
+                
+            },
+            mounted(){
+                var config = {
+                method: 'get',
+                url: 'https://api.themoviedb.org/3/movie/popular?&language=es-MX',
+                headers: { 
+                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNzYyYTJhYWVkNWIwZWM1NzU2NmQyNzRkOTVhNmUzZCIsInN1YiI6IjYzMWEyNWE0MWQxYmY0MDA3OTdlZjJiMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.dM05n-5EMLKyjCylIaYhmGc4627OjZMpDrfPVZypRMQ'
+                }
+                };
+                axios(config)
+                .then(function (response) {
+                    test.pelicula=response.data.results;
+                })
+                .catch(function (error) {
+                console.log(error);
+                });
+
+            }
+            
+        }).mount("#contenedor")
+
+    </script>
+
+
+    
+</body>
+</html>
